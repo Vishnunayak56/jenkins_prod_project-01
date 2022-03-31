@@ -5,13 +5,13 @@ pipeline {
         stage('Clone git repo') {
             steps {
                 sh 'echo "STAGE 0: Cloning app code from SCM ..."'
-                git 'https://github.com/mudathirlawal/cicd-with-jenkins-docker-and-aws-eks.git'
+                git 'https://github.com/Vishnunayak56/jenkins_prod_project-01.git'
             }    
         }        
         stage('Lint all app code') {
             steps {
-                sh 'echo "STAGE 1: Checking app code for syntax error ..."'
-                sh 'tidy -q -e *.html'
+                //sh 'echo "STAGE 1: Checking app code for syntax error ..."'
+                //sh 'tidy -q -e *.html'
             }
         }   
         stage( 'Build docker image for app' ) {
@@ -26,8 +26,8 @@ pipeline {
                 withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
                     sh 'echo "STAGE 3: Uploading image to dockerhub repository ..."'
                     sh 'docker login'
-                    sh 'docker tag web-app:v1.0 nigercode/web-app:v1.0'
-                    sh 'docker push nigercode/web-app:v1.0'          
+                    sh 'docker tag web-app:v1.0 Vishnunayak56/web-app:v1.0'
+                    sh 'docker push Vishnunayak56/web-app:v1.0'          
                 }
             }
         }                                   
@@ -45,7 +45,7 @@ pipeline {
                     sh 'kubectl get nodes --all-namespaces'
                     sh 'kubectl get deployment'
                     sh 'kubectl get pod -o wide'
-                    sh 'kubectl get service/web-app'
+                   s sh 'kubectl get service/web-app'
                     sh 'echo "Congratulations! Deployment successful."'
                     sh 'kubectl describe deployment/web-app'
                 }
